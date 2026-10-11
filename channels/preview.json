@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "product": "MV Downloader",
+  "version": "2.4.0",
+  "channel": "preview",
+  "tag": "v2.4.0-preview",
+  "release_url": "https://github.com/crytomato529/MV-Downloader-Releases/releases/tag/v2.4.0-preview",
+  "package": {
+    "name": "MV-Downloader-2.4.0-Windows-x64-Portable-preview.zip",
+    "url": "https://github.com/crytomato529/MV-Downloader-Releases/releases/download/v2.4.0-preview/MV-Downloader-2.4.0-Windows-x64-Portable-preview.zip",
+    "bytes": 124088445,
+    "sha256": "45c04a06f62faaa5d7b4902f18c65e13c92ecea0df0afecd9fbeb39e35b5ccbf"
+  },
+  "notes": [
+    "接通公开更新渠道，启动后自动检查，每天最多一次。",
+    "有新版时显示提示，可稍后提醒、跳过本版或手动检查。",
+    "提供发行说明和绿色包下载；升级保留歌单、视频和导出。"
+  ]
+}
