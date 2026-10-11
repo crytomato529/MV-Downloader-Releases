@@ -24,7 +24,7 @@ def require(condition, message):
 
 
 def gh_json(arguments):
-    completed = subprocess.run(['gh', *arguments], capture_output=True, text=True, timeout=30,
+    completed = subprocess.run(['gh', *arguments], capture_output=True, text=True, encoding='utf-8', timeout=30,
                                creationflags=PROCESS_FLAGS)
     if completed.returncode:
         raise RuntimeError('GitHub validation request failed; exit=' + str(completed.returncode))
@@ -67,8 +67,20 @@ def validate_run(kind, expected):
 
 
 def draft_release(tag, filenames):
-    release = gh_json(['api', f'repos/{REPOSITORY}/releases/tags/{tag}'])
-    require(release.get('tag_name') == tag and release.get('draft') is True,
+    # The by-tag REST endpoint excludes draft releases, even for their owner.
+    # List authenticated releases and require one exact match instead.
+    matches = []
+    for page in range(1, 11):
+        releases = gh_json(['api', f'repos/{REPOSITORY}/releases?per_page=100&page={page}'])
+        require(isinstance(releases, list), 'Malformed release inventory')
+        matches.extend(release for release in releases if release.get('tag_name') == tag)
+        if len(releases) < 100:
+            break
+    else:
+        raise ValueError('Release inventory exceeds the bounded draft lookup')
+    require(len(matches) == 1, 'Exactly one existing release with the requested tag is required')
+    release = matches[0]
+    require(release.get('draft') is True,
             'Target release must already exist as a draft')
     require(not set(filenames).intersection(asset.get('name') for asset in release.get('assets', [])),
             'Refusing to overwrite an existing release source asset')
