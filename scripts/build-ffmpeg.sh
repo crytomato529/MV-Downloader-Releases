@@ -98,7 +98,7 @@ cp "$WORK/dav1d-build/meson-logs/meson-log.txt" "$LOGS/dav1d-meson.log"
         --pkg-config=pkg-config --pkg-config-flags=--static \
         --extra-cflags="-I$PREFIX/include" --extra-ldflags="-L$PREFIX/lib -static -static-libgcc -static-libstdc++" \
         --disable-autodetect --enable-static --disable-shared --enable-gpl --enable-version3 \
-        --enable-libx264 --enable-libdav1d --enable-w32threads \
+        --enable-libx264 --enable-libdav1d --enable-w32threads --enable-network --enable-schannel \
         --disable-ffplay --disable-doc --disable-debug \
         --extra-version=mv-downloader-portable \
         2>&1 | tee "$LOGS/ffmpeg-configure.log"

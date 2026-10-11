@@ -39,3 +39,5 @@ The software release page and update JSON will be added after the complete porta
 ## Licensing
 
 The FFmpeg executables built here are GPL-3.0-or-later (`--enable-gpl --enable-version3`). x264 is GPL-2.0-or-later; dav1d is BSD-2-Clause. License texts from the exact downloaded sources and MinGW toolchain notices are included in both output ZIPs. Build materials written for this repository are MIT licensed; this does not change the licenses of any upstream source or executable. See `licenses/THIRD_PARTY_NOTICES.md`.
+
+Native networking and Windows Schannel TLS remain enabled for HTTPS/HLS fallback. External dependency autodetection remains disabled; no external TLS library is linked.
