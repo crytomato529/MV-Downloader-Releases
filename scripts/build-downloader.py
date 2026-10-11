@@ -99,6 +99,9 @@ def collect_notices(py, source, output):
     python_license = Path(sys.base_prefix) / 'LICENSE.txt'
     if not python_license.is_file():
         raise RuntimeError('Full Windows Python LICENSE.txt is missing')
+    python_license_text = python_license.read_text(encoding='utf-8')
+    if not all(term in python_license_text for term in ('Microsoft Distributable Code', 'libffi', 'Apache License')):
+        raise RuntimeError('Windows Python third-party license sections are incomplete')
     shutil.copy2(python_license, output / 'Python-Windows-LICENSE.txt')
     shutil.copy2(source / 'LICENSE', output / 'yt-dlp-Unlicense.txt')
     script = r'''
@@ -235,12 +238,15 @@ def main():
         'pyinstaller_version': '6.22.3', 'build_scripts_revision': revision,
         'pyinstaller_bootloader_zlib_version': '1.3.2',
         'build_run_url': run_url, 'sha256': digest(binary), 'bytes': binary.stat().st_size,
-        'license': 'Unlicense; Python PSF-2.0 and bundled notices; ISC; MIT; PyInstaller bootloader exception',
+        'license': 'Unlicense; PSF-2.0/Python notices; ISC; MIT; Apache-2.0; Zlib; GPL-2.0-or-later with PyInstaller bootloader exception; Microsoft runtime redistribution terms',
         'excluded_optional_modules': EXCLUDED, 'embedded_module_count': len(inventory['modules']),
         'license_files': notices, 'source_input_count': len(inputs),
         'verification': ['fixed input SHA256', 'Windows x64 binary starts', 'version', 'YouTube extractor',
                          'optional extensions absent', 'EJS Python and both JavaScript solvers embedded',
-                         'Node 24 syntax checks', 'Python bundled dependency sources matched'],
+                         'Node 24 syntax checks', 'OpenSSL and SQLite runtime versions match source inputs',
+                         'all seven CPython Windows dependency sources archived',
+                         'Windows Python Microsoft/libffi/Apache notice sections verified',
+                         'PyInstaller static zlib source and notice verified'],
     }
     write_json(package / 'build-manifest.json', manifest)
     source_package = WORK / 'corresponding-source'
