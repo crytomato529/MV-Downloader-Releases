@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "name": "ffmpeg",
+      "version": "8.1.1",
+      "commit": "239f2c733de417201d7ad3b3b8b0d9b63285b2b1",
+      "file": "ffmpeg-8.1.1.tar.xz",
+      "url": "https://ffmpeg.org/releases/ffmpeg-8.1.1.tar.xz",
+      "sha256": "b6863adde98898f42602017462871b5f6333e65aec803fdd7a6308639c52edf3",
+      "bytes": 11709440
+    },
+    {
+      "name": "x264",
+      "version": "0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee",
+      "commit": "0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee",
+      "file": "x264-0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee.tar.gz",
+      "url": "https://codeload.github.com/mirror/x264/tar.gz/0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee",
+      "sha256": "d0967a1348c85dfde363bb52610403be898171493100561efa0dd05d5fd1ae50",
+      "bytes": 1040667
+    },
+    {
+      "name": "dav1d",
+      "version": "1.5.3",
+      "commit": "b546257f770768b2c88258c533da38b91a06f737",
+      "file": "dav1d-b546257f770768b2c88258c533da38b91a06f737.tar.gz",
+      "url": "https://codeload.github.com/videolan/dav1d/tar.gz/b546257f770768b2c88258c533da38b91a06f737",
+      "sha256": "c5b7428c3f5b28db0aee0c62f6ffb2b42f4b08e7be5ce49d7ad046aaf0dc151d",
+      "bytes": 1716568
+    }
+  ]
+}

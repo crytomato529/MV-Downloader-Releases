@@ -1,0 +1,78 @@
+name: Build portable FFmpeg tools
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Compile pinned Windows x64 tools
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout public build materials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install cross compiler and build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            gcc-mingw-w64-x86-64-win32 g++-mingw-w64-x86-64-win32 \
+            binutils-mingw-w64-x86-64 mingw-w64-x86-64-dev \
+            nasm meson ninja-build pkg-config make gcc g++ curl xz-utils python3
+      - name: Compile and package exact source inputs
+        run: bash scripts/build-ffmpeg.sh
+      - name: Upload binaries and provenance
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ffmpeg-win64-tools
+          path: dist/tools/*
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload corresponding source
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ffmpeg-corresponding-source
+          path: dist/source/*
+          if-no-files-found: error
+          retention-days: 30
+      - name: Preserve build diagnostics
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ffmpeg-build-failure
+          path: .build/logs/*
+          if-no-files-found: warn
+          retention-days: 7
+
+  windows-smoke:
+    name: Check real Windows media processing
+    needs: build
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - name: Checkout public verification script
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Download compiled tools
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: ffmpeg-win64-tools
+          path: artifacts
+      - name: Test encoders, decoders and a synthetic clip
+        shell: pwsh
+        run: |
+          Expand-Archive -LiteralPath artifacts/ffmpeg-tools-win64.zip -DestinationPath smoke/tools
+          ./scripts/verify-tools.ps1 -ToolsDirectory smoke/tools -OutputDirectory smoke/results
+      - name: Upload Windows verification report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ffmpeg-windows-verification
+          path: smoke/results/*.json
+          if-no-files-found: error
+          retention-days: 30
