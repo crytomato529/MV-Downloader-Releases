@@ -1,0 +1,227 @@
+{
+  "schema": 1,
+  "python_version": "3.13.16",
+  "yt_dlp_version": "2026.08.19",
+  "packages": [
+    {
+      "name": "PyInstaller",
+      "version": "6.22.3",
+      "source": {
+        "file": "pyinstaller-6.22.3.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/63/41/f90302845945abd4ed647933ff5ee7c6ac93983187be67f897b6cb613331/pyinstaller-6.22.3.tar.gz",
+        "sha256": "05eb2f5615503e72939a7224d68b4aff572c6b0438ee4a17d0a4b481f399362d",
+        "bytes": 4437180
+      },
+      "wheel": {
+        "file": "pyinstaller-6.22.3-py3-none-win_amd64.whl",
+        "url": "https://files.pythonhosted.org/packages/24/83/c5422204772a27aef643280fdc887b7ef55679989096b21dceb1b9625fc4/pyinstaller-6.22.3-py3-none-win_amd64.whl",
+        "sha256": "500bd58c7bf7e584a8435adccbd763a0b918d5c12b08d74ff50fd79b2915458b",
+        "bytes": 1454907
+      }
+    },
+    {
+      "name": "pyinstaller-hooks-contrib",
+      "version": "2026.7",
+      "source": {
+        "file": "pyinstaller_hooks_contrib-2026.7.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/26/60/d881fa1ba8c160c18d8e6f782bb16ec4640c08bc08fc50f704c368ad4f9e/pyinstaller_hooks_contrib-2026.7.tar.gz",
+        "sha256": "5fbcaacb22c4f4aac869a127dce283f67a4b4cfcc37d496f2446603e6d68aefa",
+        "bytes": 175992
+      },
+      "wheel": {
+        "file": "pyinstaller_hooks_contrib-2026.7-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/0a/67/350377af7b50416344ab8792756d414eef7629c618a73e9a0b13bb1552d9/pyinstaller_hooks_contrib-2026.7-py3-none-any.whl",
+        "sha256": "24257a04c7a5a7a034cf28e39dcee20fbeeb9f043076729480f2e1b69904408a",
+        "bytes": 459445
+      }
+    },
+    {
+      "name": "altgraph",
+      "version": "0.17.5",
+      "source": {
+        "file": "altgraph-0.17.5.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/7e/f8/97fdf103f38fed6792a1601dbc16cc8aac56e7459a9fff08c812d8ae177a/altgraph-0.17.5.tar.gz",
+        "sha256": "c87b395dd12fabde9c99573a9749d67da8d29ef9de0125c7f536699b4a9bc9e7",
+        "bytes": 48428
+      },
+      "wheel": {
+        "file": "altgraph-0.17.5-py2.py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/a9/ba/000a1996d4308bc65120167c21241a3b205464a2e0b58deda26ae8ac21d1/altgraph-0.17.5-py2.py3-none-any.whl",
+        "sha256": "f3a22400bce1b0c701683820ac4f3b159cd301acab067c51c653e06961600597",
+        "bytes": 21228
+      }
+    },
+    {
+      "name": "packaging",
+      "version": "26.0",
+      "source": {
+        "file": "packaging-26.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/65/ee/299d360cdc32edc7d2cf530f3accf79c4fca01e96ffc950d8a52213bd8e4/packaging-26.0.tar.gz",
+        "sha256": "00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4",
+        "bytes": 143416
+      },
+      "wheel": {
+        "file": "packaging-26.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/b7/b9/c538f279a4e237a006a2c98387d081e9eb060d203d8ed34467cc0f0b9b53/packaging-26.0-py3-none-any.whl",
+        "sha256": "b36f1fef9334a5588b4166f8bcd26a14e521f2b55e6b9de3aaa80d3ff7a37529",
+        "bytes": 74366
+      }
+    },
+    {
+      "name": "pefile",
+      "version": "2024.8.26",
+      "source": {
+        "file": "pefile-2024.8.26.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/03/4f/2750f7f6f025a1507cd3b7218691671eecfd0bbebebe8b39aa0fe1d360b8/pefile-2024.8.26.tar.gz",
+        "sha256": "3ff6c5d8b43e8c37bb6e6dd5085658d658a7a0bdcd20b6a07b1fcfc1c4e9d632",
+        "bytes": 76008
+      },
+      "wheel": {
+        "file": "pefile-2024.8.26-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/54/16/12b82f791c7f50ddec566873d5bdd245baa1491bac11d15ffb98aecc8f8b/pefile-2024.8.26-py3-none-any.whl",
+        "sha256": "76f8b485dcd3b1bb8166f1128d395fa3d87af26360c2358fb75b80019b957c6f",
+        "bytes": 74766
+      }
+    },
+    {
+      "name": "pywin32-ctypes",
+      "version": "0.2.3",
+      "source": {
+        "file": "pywin32-ctypes-0.2.3.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/85/9f/01a1a99704853cb63f253eea009390c88e7131c67e66a0a02099a8c917cb/pywin32-ctypes-0.2.3.tar.gz",
+        "sha256": "d162dc04946d704503b2edc4d55f3dba5c1d539ead017afa00142c38b9885755",
+        "bytes": 29471
+      },
+      "wheel": {
+        "file": "pywin32_ctypes-0.2.3-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/de/3d/8161f7711c017e01ac9f008dfddd9410dff3674334c233bde66e7ba65bbf/pywin32_ctypes-0.2.3-py3-none-any.whl",
+        "sha256": "8a1513379d709975552d202d942d9837758905c8d01eb82b8bcc30918929e7b8",
+        "bytes": 30756
+      }
+    },
+    {
+      "name": "yt-dlp-ejs",
+      "version": "0.8.0",
+      "source": {
+        "file": "yt_dlp_ejs-0.8.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/d3/e6/cceb9530e8f4e5940f6f7822d90e9d94f1b85343329a16baaf47bbbb3de1/yt_dlp_ejs-0.8.0.tar.gz",
+        "sha256": "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e",
+        "bytes": 96571
+      },
+      "wheel": {
+        "file": "yt_dlp_ejs-0.8.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/e3/bd/520769863744b669440a924271a6159ddd82ad5ae26b4ac4d4b69e9f8d44/yt_dlp_ejs-0.8.0-py3-none-any.whl",
+        "sha256": "79300e5fca7f937a1eeede11f0456862c1b41107ce1d726871e0207424f4bdb4",
+        "bytes": 53443
+      }
+    }
+  ],
+  "sources": [
+    {
+      "name": "yt-dlp",
+      "version": "2026.08.19",
+      "commit": "3a08beaf031ab68f966401ead017ac81fe8486cf",
+      "file": "yt-dlp-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "url": "https://codeload.github.com/yt-dlp/yt-dlp/tar.gz/3a08beaf031ab68f966401ead017ac81fe8486cf",
+      "sha256": "7206981142eb461cfa603c360a55e0d08f3ed58cc754000ed821ad3ebac31ea0",
+      "bytes": 3115089
+    },
+    {
+      "name": "CPython",
+      "version": "3.13.16",
+      "commit": "cbc944f4bc59639a444dd971c737788ba2283a91",
+      "file": "Python-3.13.16.tar.xz",
+      "url": "https://www.python.org/ftp/python/3.13.16/Python-3.13.16.tar.xz",
+      "sha256": "f4b1bfb3c79b5bb11b8d228a12504163b4c0dab4d679828d8f5f26b6cb6ab35d",
+      "bytes": 23225704
+    },
+    {
+      "name": "meriyah",
+      "version": "6.1.4",
+      "commit": "abbbfe0c4e4d52649716028a4416bd0fe6644e57",
+      "file": "meriyah-abbbfe0c4e4d52649716028a4416bd0fe6644e57.tar.gz",
+      "url": "https://codeload.github.com/meriyah/meriyah/tar.gz/abbbfe0c4e4d52649716028a4416bd0fe6644e57",
+      "sha256": "addecf994d152cfdfbe0acf492ce9a51aa16220ace76a5538de17d1cee46b2d1",
+      "bytes": 944070
+    },
+    {
+      "name": "astring",
+      "version": "1.9.0",
+      "commit": "96dfb2b347fc7e4f359b26579198097b9f0b1256",
+      "file": "astring-96dfb2b347fc7e4f359b26579198097b9f0b1256.tar.gz",
+      "url": "https://codeload.github.com/davidbonnet/astring/tar.gz/96dfb2b347fc7e4f359b26579198097b9f0b1256",
+      "sha256": "cc907fe097a83c529235823820c787b1112d77c6ff216cae5fe17b14e5524fd5",
+      "bytes": 153057
+    },
+    {
+      "name": "bzip2-1.0.8",
+      "version": "bzip2-1.0.8",
+      "commit": "05301997b2f9590f49c672cf3dfd3d3dfa7ad521",
+      "file": "cpython-dependency-bzip2-1.0.8-05301997b2f9590f49c672cf3dfd3d3dfa7ad521.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/05301997b2f9590f49c672cf3dfd3d3dfa7ad521",
+      "sha256": "ab14accac86cdd92021d50465deeb221b476d6675bd1383d3c7fb83751c2e0a3",
+      "bytes": 819016,
+      "purpose": "CPython Windows external-library source from official vendor source repository"
+    },
+    {
+      "name": "libffi-3.4.4",
+      "version": "libffi-3.4.4",
+      "commit": "73b247f34ef3ae1859b8c2c34d321d34ebc5db15",
+      "file": "cpython-dependency-libffi-3.4.4-73b247f34ef3ae1859b8c2c34d321d34ebc5db15.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/73b247f34ef3ae1859b8c2c34d321d34ebc5db15",
+      "sha256": "a9b2840c1b99a2b57746c50f1f2ab902420628111690ec420e7293ec1f502d7b",
+      "bytes": 1376474,
+      "purpose": "CPython Windows external-library source from official vendor source repository"
+    },
+    {
+      "name": "mpdecimal-4.0.0",
+      "version": "mpdecimal-4.0.0",
+      "commit": "48316ec025c1ebe500854c332be0a12c640c7301",
+      "file": "cpython-dependency-mpdecimal-4.0.0-48316ec025c1ebe500854c332be0a12c640c7301.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/48316ec025c1ebe500854c332be0a12c640c7301",
+      "sha256": "2db089d12f3467f7ec6cc964e821faa18fb662c467b2fa713e32a39c374441e3",
+      "bytes": 319969,
+      "purpose": "CPython Windows external-library source from official vendor source repository"
+    },
+    {
+      "name": "openssl-3.5.9",
+      "version": "openssl-3.5.9",
+      "commit": "9781f5eb703412922b70d69b4f1e10e54e1bd303",
+      "file": "cpython-dependency-openssl-3.5.9-9781f5eb703412922b70d69b4f1e10e54e1bd303.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/9781f5eb703412922b70d69b4f1e10e54e1bd303",
+      "sha256": "d3e2463b592f5cd611acc286b8e0101702fbede19ce30c673033cd8933eea002",
+      "bytes": 53481197,
+      "purpose": "CPython Windows external-library source from official vendor source repository"
+    },
+    {
+      "name": "sqlite-3.50.4.0",
+      "version": "sqlite-3.50.4.0",
+      "commit": "ef547e549b49a2822214ef7880c0ca212b32929e",
+      "file": "cpython-dependency-sqlite-3.50.4.0-ef547e549b49a2822214ef7880c0ca212b32929e.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/ef547e549b49a2822214ef7880c0ca212b32929e",
+      "sha256": "e8d069c4d94cca67809f2d38c299ecc596f93b00061db197c0562cdd042a3418",
+      "bytes": 2845160,
+      "purpose": "CPython Windows external-library source from official vendor source repository"
+    },
+    {
+      "name": "xz-5.2.5",
+      "version": "xz-5.2.5",
+      "commit": "c6bc0c612605622aaef101a33a751f9de2ecc193",
+      "file": "cpython-dependency-xz-5.2.5-c6bc0c612605622aaef101a33a751f9de2ecc193.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/c6bc0c612605622aaef101a33a751f9de2ecc193",
+      "sha256": "115433c946ee069e857fd04cf41b38a4a74ed45d868a3b2e08ccd4a1f04f39d0",
+      "bytes": 1745919,
+      "purpose": "CPython Windows external-library source from official vendor source repository"
+    },
+    {
+      "name": "zlib-1.3.1",
+      "version": "zlib-1.3.1",
+      "commit": "4dc98e1909830e2bdc2a9cc2236e3c5d5037335b",
+      "file": "cpython-dependency-zlib-1.3.1-4dc98e1909830e2bdc2a9cc2236e3c5d5037335b.tar.gz",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/4dc98e1909830e2bdc2a9cc2236e3c5d5037335b",
+      "sha256": "1fe30e919eb560f495de9ee4bd7ba5216ce13f454affb4ccc32e15efa3878f5e",
+      "bytes": 1572582,
+      "purpose": "CPython Windows external-library source from official vendor source repository"
+    }
+  ]
+}
