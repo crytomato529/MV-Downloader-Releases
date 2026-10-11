@@ -13,6 +13,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import ssl
 import sqlite3
@@ -46,6 +47,60 @@ def digest(path):
         for block in iter(lambda: f.read(1024 * 1024), b''):
             h.update(block)
     return h.hexdigest()
+
+
+def is_license_file(path):
+    """Recognize metadata notices, not Python's packaging.licenses code package."""
+    parts = Path(path).parts
+    if '__pycache__' in parts or Path(path).suffix.lower() in (
+            '.py', '.pyc', '.pyo', '.pyd', '.dll', '.exe', '.so', '.a', '.whl'):
+        return False
+    metadata_licenses = any(
+        part.lower().endswith(('.dist-info', '.egg-info'))
+        and i + 1 < len(parts) and parts[i + 1].lower() == 'licenses'
+        for i, part in enumerate(parts))
+    return metadata_licenses or bool(re.fullmatch(
+        r'(?:licen[sc]e|copying|notice|copyright)(?:[._-].*)?', Path(path).name, re.IGNORECASE))
+
+
+def decode_license_text(data):
+    """Keep complete legal text while handling BOMs and refusing binary noise."""
+    if data.startswith((b'\xff\xfe\x00\x00', b'\x00\x00\xfe\xff')):
+        codec = 'utf-32'
+    elif data.startswith((b'\xff\xfe', b'\xfe\xff')):
+        codec = 'utf-16'
+    elif data.startswith(b'\xef\xbb\xbf'):
+        codec = 'utf-8-sig'
+    else:
+        codec = 'utf-8'
+    text = data.decode(codec, errors='strict')
+    if '\x00' in text or '\ufffd' in text:
+        raise ValueError('License contains NUL or replacement characters')
+    return text
+
+
+def collect_installed_license_texts(output):
+    """Runs in the clean build venv; prints only the collected-file inventory."""
+    records = []
+    for name in ['PyInstaller', 'pyinstaller-hooks-contrib', 'altgraph', 'packaging',
+                 'pefile', 'pywin32-ctypes', 'yt-dlp-ejs']:
+        distribution = importlib.metadata.distribution(name)
+        for file in distribution.files or []:
+            if not is_license_file(file):
+                continue
+            source = Path(distribution.locate_file(file))
+            if source.is_file():
+                target = output / (name + '-' + str(file).replace('/', '_').replace('\\', '_'))
+                target.write_text(decode_license_text(source.read_bytes()), encoding='utf-8')
+                records.append({'distribution': name, 'version': distribution.version, 'file': target.name})
+    import yt_dlp_ejs
+    for p in Path(yt_dlp_ejs.__file__).parent.rglob('*.js'):
+        text = p.read_text(encoding='utf-8')
+        if text.startswith('/*') and 'license' in text[:3000].lower():
+            notice = text.split('*/', 1)[0] + '*/\n'
+            decode_license_text(notice.encode('utf-8'))
+            (output / ('EJS-' + p.name + '-licenses.txt')).write_text(notice, encoding='utf-8')
+    print(json.dumps(records))
 
 
 def run(args, cwd=None, name='command'):
@@ -99,30 +154,12 @@ def collect_notices(py, source, output):
     python_license = Path(sys.base_prefix) / 'LICENSE.txt'
     if not python_license.is_file():
         raise RuntimeError('Full Windows Python LICENSE.txt is missing')
-    python_license_text = python_license.read_text(encoding='utf-8')
+    python_license_text = decode_license_text(python_license.read_bytes())
     if not all(term in python_license_text for term in ('Microsoft Distributable Code', 'libffi', 'Apache License')):
         raise RuntimeError('Windows Python third-party license sections are incomplete')
-    shutil.copy2(python_license, output / 'Python-Windows-LICENSE.txt')
-    shutil.copy2(source / 'LICENSE', output / 'yt-dlp-Unlicense.txt')
-    script = r'''
-import importlib.metadata as m, json, pathlib, sys
-out=pathlib.Path(sys.argv[1]); records=[]
-for name in ['PyInstaller','pyinstaller-hooks-contrib','altgraph','packaging','pefile','pywin32-ctypes','yt-dlp-ejs']:
-    d=m.distribution(name)
-    for f in d.files or []:
-        if any(x.lower().startswith(('license','copying','notice')) for x in f.parts):
-            p=pathlib.Path(d.locate_file(f))
-            if p.is_file():
-                target=out/(name+'-'+str(f).replace('/','_').replace('\\','_'))
-                target.write_bytes(p.read_bytes()); records.append({'distribution':name,'version':d.version,'file':target.name})
-import yt_dlp_ejs
-for p in pathlib.Path(yt_dlp_ejs.__file__).parent.rglob('*.js'):
-    text=p.read_text(encoding='utf-8')
-    if text.startswith('/*') and 'license' in text[:3000].lower():
-        (out/('EJS-'+p.name+'-licenses.txt')).write_text(text.split('*/',1)[0]+'*/\n',encoding='utf-8')
-print(json.dumps(records))
-'''
-    records = json.loads(run([py, '-c', script, output], name='collect-license-texts'))
+    (output / 'Python-Windows-LICENSE.txt').write_text(python_license_text, encoding='utf-8')
+    (output / 'yt-dlp-Unlicense.txt').write_text(decode_license_text((source / 'LICENSE').read_bytes()), encoding='utf-8')
+    records = json.loads(run([py, Path(__file__).resolve(), '--collect-installed-licenses', output], name='collect-license-texts'))
     if not any(r['distribution'] == 'PyInstaller' for r in records):
         raise RuntimeError('PyInstaller full license was not collected')
     if not (output / 'EJS-lib.min.js-licenses.txt').is_file():
@@ -135,17 +172,18 @@ print(json.dumps(records))
         zlib_header = next(m for m in archive.getmembers() if m.name.endswith('/bootloader/zlib/zlib.h'))
         if '#define ZLIB_VERSION "1.3.2"' not in archive.extractfile(zlib_header).read().decode():
             raise RuntimeError('Unexpected PyInstaller bootloader zlib version')
-        (output / 'PyInstaller-bootloader-zlib-1.3.2-LICENSE.txt').write_bytes(archive.extractfile(zlib_license).read())
+        (output / 'PyInstaller-bootloader-zlib-1.3.2-LICENSE.txt').write_text(
+            decode_license_text(archive.extractfile(zlib_license).read()), encoding='utf-8')
     for item in LOCK['sources']:
         if item['name'] in ('yt-dlp', 'CPython', 'meriyah', 'astring'):
             continue
         with tarfile.open(INPUTS / item['file']) as archive:
             for member in archive.getmembers():
                 base = Path(member.name).name.lower()
-                if member.isfile() and member.size < 500_000 and base.startswith(('license', 'copying', 'notice')):
+                if member.isfile() and member.size < 500_000 and is_license_file(member.name):
                     data = archive.extractfile(member).read()
                     name = item['name'] + '-' + member.name.replace('/', '_')
-                    (output / name).write_bytes(data)
+                    (output / name).write_text(decode_license_text(data), encoding='utf-8')
     notice = (
         'MINIMAL YT-DLP WINDOWS BUILD\n'
         'yt-dlp and EJS source: Unlicense. EJS JavaScript: Meriyah ISC; Astring MIT.\n'
@@ -158,7 +196,8 @@ print(json.dumps(records))
     )
     for p in sorted(output.iterdir()):
         notice += '\n' + '=' * 72 + '\n' + p.name + '\n' + '=' * 72 + '\n'
-        notice += p.read_text(encoding='utf-8', errors='replace') + '\n'
+        notice += decode_license_text(p.read_bytes()) + '\n'
+    decode_license_text(notice.encode('utf-8'))
     (output / 'THIRD_PARTY_LICENSES.txt').write_text(notice, encoding='utf-8')
     shutil.copy2(output / 'THIRD_PARTY_LICENSES.txt', source / 'THIRD_PARTY_LICENSES.txt')
     return records
@@ -259,6 +298,7 @@ def main():
     (source_package / 'scripts').mkdir()
     (source_package / '.github' / 'workflows').mkdir(parents=True)
     shutil.copy2(ROOT / 'scripts' / 'build-downloader.py', source_package / 'scripts' / 'build-downloader.py')
+    shutil.copy2(ROOT / 'scripts' / 'test-downloader-materials.py', source_package / 'scripts' / 'test-downloader-materials.py')
     shutil.copy2(ROOT / '.github' / 'workflows' / 'build-downloader.yml', source_package / '.github' / 'workflows' / 'build-downloader.yml')
     write_json(source_package / 'build-manifest.json', manifest)
     (source_package / 'README.txt').write_text(
@@ -286,4 +326,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) == 3 and sys.argv[1] == '--collect-installed-licenses':
+        collect_installed_license_texts(Path(sys.argv[2]))
+    else:
+        main()

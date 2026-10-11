@@ -21,7 +21,10 @@ jobs:
           node-version: '24.15.0'
       - name: Build, inspect and test pinned standalone downloader
         shell: pwsh
-        run: python scripts/build-downloader.py
+        run: |
+          python scripts/test-downloader-materials.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/build-downloader.py
       - name: Upload Windows downloader
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
