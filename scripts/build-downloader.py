@@ -76,7 +76,9 @@ def decode_license_text(data):
     text = data.decode(codec, errors='strict')
     if '\x00' in text or '\ufffd' in text:
         raise ValueError('License contains NUL or replacement characters')
-    return text
+    # write_text on Windows emits CRLF; normalize first to avoid CRCRLF when
+    # notices are written separately and then merged into the aggregate.
+    return text.replace('\r\n', '\n').replace('\r', '\n')
 
 
 def collect_installed_license_texts(output):

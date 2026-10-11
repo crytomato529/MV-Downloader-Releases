@@ -35,5 +35,11 @@ class LicenseMaterials(unittest.TestCase):
             with self.subTest(data=data):
                 with self.assertRaises((ValueError,UnicodeError)):builder.decode_license_text(data)
 
+    def test_windows_line_endings_do_not_gain_blank_lines(self):
+        text='Copyright holder.\r\nPermission granted.\r\n'
+        normalized='Copyright holder.\nPermission granted.\n'
+        self.assertEqual(builder.decode_license_text(text.encode('utf-8')),normalized)
+        self.assertEqual(builder.decode_license_text(text.encode('utf-16')),normalized)
+
 
 if __name__=='__main__':unittest.main()
