@@ -124,6 +124,15 @@ print(json.dumps(records))
         raise RuntimeError('PyInstaller full license was not collected')
     if not (output / 'EJS-lib.min.js-licenses.txt').is_file():
         raise RuntimeError('Bundled JavaScript licenses are missing')
+    # PyInstaller's Windows bootloader embeds its own zlib, distinct from
+    # CPython's zlib version. Its full source is in this pinned sdist.
+    pyinstaller_source = next(p['source'] for p in LOCK['packages'] if p['name'] == 'PyInstaller')
+    with tarfile.open(INPUTS / pyinstaller_source['file']) as archive:
+        zlib_license = next(m for m in archive.getmembers() if m.name.endswith('/bootloader/zlib/LICENSE'))
+        zlib_header = next(m for m in archive.getmembers() if m.name.endswith('/bootloader/zlib/zlib.h'))
+        if '#define ZLIB_VERSION "1.3.2"' not in archive.extractfile(zlib_header).read().decode():
+            raise RuntimeError('Unexpected PyInstaller bootloader zlib version')
+        (output / 'PyInstaller-bootloader-zlib-1.3.2-LICENSE.txt').write_bytes(archive.extractfile(zlib_license).read())
     for item in LOCK['sources']:
         if item['name'] in ('yt-dlp', 'CPython', 'meriyah', 'astring'):
             continue
@@ -224,6 +233,7 @@ def main():
         'python_version': platform.python_version(), 'openssl_version': ssl.OPENSSL_VERSION,
         'sqlite_version': sqlite3.sqlite_version, 'ejs_version': '0.8.0',
         'pyinstaller_version': '6.22.3', 'build_scripts_revision': revision,
+        'pyinstaller_bootloader_zlib_version': '1.3.2',
         'build_run_url': run_url, 'sha256': digest(binary), 'bytes': binary.stat().st_size,
         'license': 'Unlicense; Python PSF-2.0 and bundled notices; ISC; MIT; PyInstaller bootloader exception',
         'excluded_optional_modules': EXCLUDED, 'embedded_module_count': len(inventory['modules']),
