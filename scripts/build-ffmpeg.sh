@@ -131,7 +131,7 @@ meson --version > "$LOGS/meson-version.txt"
 python3 - "$ROOT" "$WORK" "$STAGE" "$DIST" <<'PY'
 import hashlib, json, os, pathlib, re, subprocess, sys, zipfile
 root, work, stage, dist = map(pathlib.Path, sys.argv[1:])
-allowed = {'advapi32.dll','avicap32.dll','bcrypt.dll','comdlg32.dll','crypt32.dll','d3d11.dll','d3d12.dll','dwmapi.dll','dxgi.dll','gdi32.dll','kernel32.dll','mf.dll','mfplat.dll','msvcrt.dll','ntdll.dll','ole32.dll','oleaut32.dll','psapi.dll','secur32.dll','setupapi.dll','shell32.dll','shlwapi.dll','user32.dll','vfw32.dll','winmm.dll','ws2_32.dll','wtsapi32.dll'}
+allowed = {'advapi32.dll','avicap32.dll','bcrypt.dll','comdlg32.dll','crypt32.dll','d3d11.dll','d3d12.dll','dwmapi.dll','dxgi.dll','gdi32.dll','kernel32.dll','mf.dll','mfplat.dll','msvcrt.dll','ncrypt.dll','ntdll.dll','ole32.dll','oleaut32.dll','psapi.dll','secur32.dll','setupapi.dll','shell32.dll','shlwapi.dll','user32.dll','vfw32.dll','winmm.dll','ws2_32.dll','wtsapi32.dll'}
 tools = []
 for binary in sorted((stage/'bin').glob('*.exe')):
     dump = subprocess.check_output(['x86_64-w64-mingw32-objdump','-p',str(binary)], text=True)
