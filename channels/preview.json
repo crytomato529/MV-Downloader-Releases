@@ -1,20 +1,20 @@
 {
   "schema": 1,
   "product": "MV Downloader",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "channel": "preview",
-  "tag": "v2.5.0-preview",
-  "release_url": "https://github.com/crytomato529/MV-Downloader-Releases/releases/tag/v2.5.0-preview",
+  "tag": "v2.5.1-preview",
+  "release_url": "https://github.com/crytomato529/MV-Downloader-Releases/releases/tag/v2.5.1-preview",
   "package": {
-    "name": "MV-Downloader-2.5.0-Windows-x64-Portable-preview.zip",
-    "url": "https://github.com/crytomato529/MV-Downloader-Releases/releases/download/v2.5.0-preview/MV-Downloader-2.5.0-Windows-x64-Portable-preview.zip",
-    "bytes": 124165145,
-    "sha256": "f710d9bd8c8637c7e8409f80049d01d0c06bc41755622846c4d916f178a3eee7"
+    "name": "MV-Downloader-2.5.1-Windows-x64-Portable-preview.zip",
+    "url": "https://github.com/crytomato529/MV-Downloader-Releases/releases/download/v2.5.1-preview/MV-Downloader-2.5.1-Windows-x64-Portable-preview.zip",
+    "bytes": 124174023,
+    "sha256": "6373117ac8338c20d9920655333b1cadc47976a1cf6b8daa6aee2410e3186434"
   },
   "notes": [
-    "已下载的歌曲可立即预览、剪辑和导出，不再等待整单结束；打包包含点击时已完成的歌曲。",
-    "支持最多 100 首、年份与赛季格式、YouTube 参考链接和候选版本选择；来源与画面检查分开说明。",
-    "支持本地音源或 YouTube 音源替换、偏移与速度调整、同步预览；可随时恢复原音轨。",
-    "保留已有选区、原片与更新设置；歌单解析、来源检查、剪辑和打包均不调用 AI。"
+    "修复待确认画面的歌曲无法保存选区、切歌反复提示上一首未保存的问题；保存选区后仍须明确确认画面才可导出。",
+    "失败歌曲可打开查看原因和更换版本；保存失败时保留当前草稿，允许继续重试下载。",
+    "改进年份歌单、一行多首及合作歌手解析，保留女声选段备注；补充有来源证据的官方 MV。",
+    "保留已有选区、原片与更新设置；下载保持 1080p 封顶，软件运行不依赖 AI。"
   ]
 }

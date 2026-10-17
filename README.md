@@ -2,11 +2,11 @@
 
 Windows 10/11 x64 绿色软件：粘贴歌单，从 YouTube 下载 MV，预览原片、拖动选区并导出完整视频或剪辑片段。默认截取 20 秒，可调整长度；下载清晰度 1080p 封顶。
 
-[下载 2.5.0 预览版](https://github.com/crytomato529/MV-Downloader-Releases/releases/tag/v2.5.0-preview)
+[下载 2.5.1 预览版](https://github.com/crytomato529/MV-Downloader-Releases/releases/tag/v2.5.1-preview)
 
-请下载 **MV-Downloader-2.5.0-Windows-x64-Portable-preview.zip**，完整解压后双击 **MV Downloader.exe**。可以免费分享完整原包。首次使用无需 GitHub 账号，也不需要 AI、Python 或开发环境。界面需要 Windows .NET 4.8 与 [Microsoft WebView2](https://developer.microsoft.com/microsoft-edge/webview2/)。
+请下载 **MV-Downloader-2.5.1-Windows-x64-Portable-preview.zip**，完整解压后双击 **MV Downloader.exe**。可以免费分享完整原包。首次使用无需 GitHub 账号，也不需要 AI、Python 或开发环境。界面需要 Windows .NET 4.8 与 [Microsoft WebView2](https://developer.microsoft.com/microsoft-edge/webview2/)。
 
-2.5.0 支持最多 100 首、年份/赛季与逐首 YouTube 参考链接。已完成歌曲可立即预览、剪辑和导出，无须等整单结束；打包包含点击时已完成的歌曲并附其余状态。候选版本分别说明来源依据和画面类型，循环动画需要确认，纯静止封面会被排除。音轨可由本地文件或明确的 YouTube 音源替换，支持手动偏移/速度和同步预览，原片保留，可恢复原音轨。高分辨率和码率不保证画面/声音本身质量，请试听核对。
+2.5.1 修复待确认视频选区保存失败、切歌反复提示未保存及失败歌曲无法打开的问题；保存失败后仍可继续修复。支持最多 100 首、年份/赛季与逐首 YouTube 参考链接。已完成歌曲可立即预览、剪辑和导出，无须等整单结束；打包包含点击时已完成的歌曲并附其余状态。候选版本分别说明来源依据和画面类型，循环动画需要确认，纯静止封面会被排除。音轨可由本地文件或明确的 YouTube 音源替换，支持手动偏移/速度和同步预览，原片保留，可恢复原音轨。高分辨率和码率不保证画面/声音本身质量，请试听核对。
 
 软件默认每天检查一次新版；发现新版时显示提示，支持手动检查、稍后提醒、跳过本版和关闭自动检查。更新检查只读取公开版本清单，不发送歌单或视频。
 
